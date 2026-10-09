@@ -83,20 +83,26 @@ const isActive = (href: string) => path.startsWith(href);
 </header>
 
 <div id="mobile-menu" popover class="mobile-menu m-0 h-dvh max-h-none w-full max-w-none bg-bg text-fg p-0">
-  <div class="container-x flex h-full flex-col pb-10 pt-6">
-    <div class="flex items-center justify-between">
-      <Logo class="text-[1.9rem]" />
-      <button
-        type="button"
-        popovertarget="mobile-menu"
-        popovertargetaction="hide"
-        class="grid size-11 place-items-center rounded-full border border-line"
-        aria-label={i.close}
-      >
-        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-          <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"></path>
-        </svg>
-      </button>
+  <div class="container-x flex h-full flex-col pb-10 pt-3 sm:pt-4">
+    {/* Same chrome as the fixed header so the X lands exactly on the burger. */}
+    <div
+      class="flex h-14 items-center justify-between gap-4 rounded-full border border-line bg-bg pl-5 pr-2 sm:h-16 sm:pl-6"
+    >
+      <Logo class="text-[1.65rem] sm:text-[1.9rem]" />
+      <div class="flex items-center gap-2">
+        <ThemeToggle label={i.themeToggle} />
+        <button
+          type="button"
+          popovertarget="mobile-menu"
+          popovertargetaction="hide"
+          class="grid size-10 place-items-center rounded-full border border-line"
+          aria-label={i.close}
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"></path>
+          </svg>
+        </button>
+      </div>
     </div>
     <nav aria-label={i.menu} class="mt-auto">
       <ul class="space-y-1">
@@ -123,24 +129,23 @@ const isActive = (href: string) => path.startsWith(href);
 </div>
 
 <style>
+  /* No display/overlay transitions — those hang for seconds on iOS Safari when closing. */
   .mobile-menu {
     inset: 0;
     opacity: 0;
-    transform: translateY(-1rem);
-    transition:
-      opacity 300ms ease,
-      transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
-      overlay 400ms allow-discrete,
-      display 400ms allow-discrete;
+    transform: translateY(-0.75rem);
   }
   .mobile-menu:popover-open {
     opacity: 1;
     transform: none;
+    transition:
+      opacity 280ms ease,
+      transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
   }
   @starting-style {
     .mobile-menu:popover-open {
       opacity: 0;
-      transform: translateY(-1rem);
+      transform: translateY(-0.75rem);
     }
   }
 </style>
